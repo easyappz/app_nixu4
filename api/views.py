@@ -132,15 +132,20 @@ class ProfileView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class MessageListView(APIView):
+class MessageView(APIView):
     """
-    Get all messages ordered by created_at.
+    Unified view for message operations.
+    GET: Retrieve message history with pagination.
+    POST: Create a new message.
     Requires authentication.
     """
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     
     def get(self, request):
+        """
+        Get all messages ordered by created_at.
+        """
         limit = request.query_params.get('limit', 50)
         offset = request.query_params.get('offset', 0)
         
@@ -170,17 +175,11 @@ class MessageListView(APIView):
             },
             status=status.HTTP_200_OK
         )
-
-
-class MessageCreateView(APIView):
-    """
-    Create a new message.
-    Requires authentication.
-    """
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
     
     def post(self, request):
+        """
+        Create a new message.
+        """
         serializer = MessageCreateSerializer(data=request.data)
         if serializer.is_valid():
             message = serializer.save(member=request.user)
