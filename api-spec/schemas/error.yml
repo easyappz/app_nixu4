@@ -1,0 +1,8 @@
+type: object
+properties:
+  error:
+    type: string
+    example: "Invalid credentials"
+  detail:
+    type: string
+    example: "The provided username or password is incorrect"

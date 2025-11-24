@@ -1,0 +1,74 @@
+register:
+  post:
+    summary: Register new user
+    tags:
+      - Authentication
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - username
+              - password
+            properties:
+              username:
+                type: string
+                minLength: 3
+                maxLength: 150
+                example: "john_doe"
+              password:
+                type: string
+                format: password
+                minLength: 6
+                example: "secure_password123"
+    responses:
+      '201':
+        description: User successfully registered
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/token.yml'
+      '400':
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/error.yml'
+
+login:
+  post:
+    summary: User login
+    tags:
+      - Authentication
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - username
+              - password
+            properties:
+              username:
+                type: string
+                example: "john_doe"
+              password:
+                type: string
+                format: password
+                example: "secure_password123"
+    responses:
+      '200':
+        description: Successfully authenticated
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/token.yml'
+      '401':
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/error.yml'

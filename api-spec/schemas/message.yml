@@ -1,0 +1,28 @@
+type: object
+required:
+  - id
+  - member
+  - content
+  - created_at
+properties:
+  id:
+    type: integer
+    format: int64
+    example: 1
+  member:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      username:
+        type: string
+        example: "john_doe"
+  content:
+    type: string
+    maxLength: 5000
+    example: "Hello, everyone!"
+  created_at:
+    type: string
+    format: date-time
+    example: "2025-11-24T12:00:00Z"
