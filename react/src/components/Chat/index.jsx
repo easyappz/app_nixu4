@@ -134,7 +134,7 @@ export const Chat = () => {
                 <div key={message.id} className="chat-message">
                   <div className="chat-message-header">
                     <span className="chat-message-author">
-                      {message.author?.username || 'Аноним'}
+                      {message.member?.username || 'Аноним'}
                     </span>
                     <span className="chat-message-timestamp">
                       {formatTimestamp(message.created_at)}

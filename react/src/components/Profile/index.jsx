@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getProfile, updateProfile } from '../../api/profile';
-import { getToken, removeToken } from '../../api/auth';
+import { getToken, logout } from '../../api/auth';
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export const Profile = () => {
       setUsername(data.username || '');
     } catch (err) {
       if (err.response?.status === 401) {
-        removeToken();
+        logout();
         navigate('/login');
       } else {
         setError(err.response?.data?.error || 'Ошибка загрузки профиля');
@@ -85,7 +85,7 @@ export const Profile = () => {
       setSuccessMessage('Профиль успешно обновлен');
     } catch (err) {
       if (err.response?.status === 401) {
-        removeToken();
+        logout();
         navigate('/login');
       } else if (err.response?.status === 400) {
         setError(err.response?.data?.error || 'Некорректные данные');
@@ -102,7 +102,7 @@ export const Profile = () => {
   };
 
   const handleLogout = () => {
-    removeToken();
+    logout();
     navigate('/login');
   };
 
